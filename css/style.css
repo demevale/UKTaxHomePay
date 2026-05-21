@@ -1,0 +1,373 @@
+/* ======================================================================== //
+// College: Capital City College                                            //
+// Student: César Qiuilligana Gancino                                       //
+// Code: script.js                                                          //
+// ======================================================================== //*/
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #f5f7fb;
+    color: #222;
+}
+
+/* --------------------   LAYOUT    -----------------------------------------*/
+.container {
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 16px;
+    text-align: left;
+}
+
+/* --------------------   HEADER   ----------------------------------------- */
+.site-header {
+    background: #0b3c7d;
+    color: #fff;
+    padding: 12px 0;
+}
+
+.brand {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #fff;
+}
+
+.brand small {
+    font-weight: 400;
+    opacity: 0.8;
+    margin-left: 4px;
+}
+
+/* --------------------   TITLE BLOCK   ------------------------------------ */
+.title-block {
+    background: #ffffff;
+    border-bottom: 1px solid #e0e4ef;
+    padding: 24px 0;
+    margin-bottom: 24px;
+}
+
+.page-title {
+    margin: 0 0 8px;
+    font-size: 1.8rem;
+    color: #0b3c7d;
+}
+
+.lead {
+    margin: 0;
+    color: #555;
+}
+
+/* --------------------   MAIN SECTIONS   ---------------------------------- */
+main {
+    padding-bottom: 40px;
+}
+
+section {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 20px 18px 24px;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
+    margin-bottom: 24px;
+}
+
+section h2 {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 1.4rem;
+    color: #0b3c7d;
+}
+
+/* --------------------   WELCOME MESSAGE   -------------------------------- */
+.welcome-text {
+    margin-top: 6px;
+    margin-bottom: 16px;
+    font-size: 1rem;
+    color: #0b3c7d;
+    font-weight: 500;
+}
+
+/* --------------------   FORM FIELDS   ------------------------------------ */
+.field {
+    margin-bottom: 16px;
+}
+
+.field label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+.input {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 4px;
+    border: 1px solid #cbd5e1;
+    font-size: 0.95rem;
+    outline: none;
+    background: #fff;
+}
+
+.input:focus {
+    border-color: #0b3c7d;
+    box-shadow: 0 0 0 1px rgba(11, 60, 125, 0.15);
+}
+
+/* Input con prefijo £ */
+.input-row {
+    display: flex;
+    align-items: center;
+}
+
+.input-prefix {
+    padding: 8px 10px;
+    border: 1px solid #cbd5e1;
+    border-right: 0;
+    border-radius: 4px 0 0 4px;
+    background: #f1f5f9;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.input-row .input {
+    border-radius: 0 4px 4px 0;
+}
+
+/* --------------------   RADIO GROUP   ------------------------------------ */
+.radio-group {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.radio-group label {
+    font-weight: 400;
+    cursor: pointer;
+}
+
+/* --------------------   BUTTONS   ---------------------------------------- */
+.btn {
+    display: inline-block;
+    padding: 8px 18px;
+    border-radius: 4px;
+    border: none;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.05s ease;
+}
+
+/* Button: Continue */
+.btn-continue {
+    background: #0b3c7d;
+    color: #fff;
+}
+
+.btn-continue:hover {
+    background: #0d4a9b;
+}
+
+/* Button: Help */
+.btn-help {
+    background: transparent;
+    margin-left: 12px;
+}
+
+.btn-help:hover {
+    background: #0d4a9b;
+    color: #fff;
+}
+
+/* Button: Calculate */
+.btn-calculate {
+    background: #0b3c7d;
+    color: #fff;
+}
+
+.btn-calculate:hover {
+    background: #0d4a9b;
+}
+
+/* Button: Print Summary */
+.btn-printSummary {
+    background: #0b3c7d;
+    color: #fff;
+}
+
+.btn-printSummary:hover {
+    background: #0d4a9b;
+}
+
+/* Button: Print with documente */
+.btn-printWithDocumentWrite {
+    background: #0b3c7d;
+    color: #fff;
+}
+
+.btn-printWithDocumentWrite:hover {
+    background: #0d4a9b;
+}
+
+/* Button: Enter New User */
+.btn-newUser {
+    background: #0b3c7d;
+    color: #fff;
+    /*border: 1px solid #cbd5e1;*/
+}
+
+.btn-newUser:hover {
+    background: #0d4a9b;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.mt-4 {
+    margin-top: 16px;
+}
+
+/* --------------------   WINDOWS HELP   -------------------------------- */
+/* BACKGROUND */
+.modal{
+    display:none;
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.5);
+}
+
+/* Windows HELP */
+.modal-content{
+    background:white;
+    width:700px;
+    max-width:90%;
+    max-height:80vh;
+    overflow-y:auto;
+    padding:25px;
+    border-radius:10px;
+    margin:4% auto;
+    position:relative;
+    line-height:1.6;
+}
+
+/* Scroll style */
+.modal-content::-webkit-scrollbar{
+    width:10px;
+}
+
+.modal-content::-webkit-scrollbar-thumb{
+    background:#0b3c7d;
+    border-radius:10px;
+}
+
+/* CLOSE */
+#closeBtn{
+    position:absolute;
+    top:10px;
+    right:15px;
+    font-size:28px;
+    cursor:pointer;
+    color:red;
+}
+
+/* --------------------   RESULTS GRID (RESTORED)   ------------------- */
+.results-header,
+.results-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 8px;
+    align-items: center;
+    font-size: 0.95rem;
+}
+
+.results-header {
+    margin-top: 12px;
+    padding: 8px 10px;
+    background: #f1f5f9;
+    border-radius: 4px;
+    font-weight: 600;
+    color: #0b3c7d;
+    text-decoration: underline;
+}
+
+.results-row {
+    padding: 6px 10px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.results-row:last-of-type {
+    border-bottom: none;
+}
+
+/* --------------------   DIVIDER BEFORE NET PAY   -------------------- */
+.divider {
+    border: 0;
+    border-top: 2px solid #d0d0d0;
+    margin: 22px 0 14px;
+    width: 100%;
+}
+
+/* --------------------   FOOTER   ------------------------------------ */
+.site-footer {
+    border-top: 1px solid #e2e8f0;
+    padding: 14px 0 18px;
+    font-size: 0.85rem;
+    color: #64748b;
+    background: #ffffff;
+}
+
+/* --------------------   RESPONSIVE   -------------------------------- */
+@media (max-width: 640px) {
+    .results-header,
+    .results-row {
+        grid-template-columns: 1.6fr 1fr 1fr;
+        font-size: 0.9rem;
+    }
+
+    section {
+        padding: 16px 14px 20px;
+    }
+
+    .page-title {
+        font-size: 1.5rem;
+    }
+}
+
+/* --------------------   PRINT  -------------------------------------- */
+@media print {
+    body {
+        background: #ffffff;
+    }
+
+    .site-header,
+    .title-block,
+    .site-footer,
+    #step-1,
+    #step-2,
+    .btn {
+        display: none !important;
+    }
+
+    #results {
+        display: block !important;
+        box-shadow: none;
+        border: none;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 100%;
+        padding: 0;
+    }
+}

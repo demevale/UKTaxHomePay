@@ -1,0 +1,234 @@
+<!-- =======================================================================//
+// College: Capital City College                                            //
+// Student: César Qiuilligana Gancino                                       //
+// Code: script.js                                                          //
+// ======================================================================== //-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UK Home Tax Calculator</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="container">
+        <a class="brand">UK Tax Calculator <small>2024–2025</small></a>
+    </div>
+</header>
+
+<!-- Title block -->
+<div class="title-block">
+    <div class="container">
+        <h1 class="page-title">Tax & National Insurance Calculator</h1>
+        <p class="lead">Input your details to calculate your annual and monthly deductions.</p>
+    </div>
+</div>
+
+<main>
+    <!-- Main container -->
+    <div class="container">
+
+        <!-- Step 1: Personal Information -->
+        <section id="step-1">
+            <h2>Step 1: Personal Information</h2>
+
+            <!-- Welcome message. Injected here by JavaScript -->
+            <p id="welcomeMessage" class="welcome-text"></p>
+            
+             <!-- Field: First name -->
+            <div class="field">
+                <!-- Label: First name -->
+                <label>First Name:</label>
+                <!-- Input: First name -->
+                <input class="input" type="text" id="fName">
+            </div>
+
+            <!-- Field: Last name -->
+            <div class="field">
+                <!-- Label: Last name -->
+                <label>Last Name:</label>
+                <!-- Input: Last name -->
+                <input class="input" type="text" id="lName" min="1" max="10">
+            </div>
+
+            <!-- Fieldset: UK Residency -->
+            <fieldset class="field">
+                <legend>Do you live in The United Kingdown?</legend>
+                <!-- Radio group: UK Residency -->
+                <div class="radio-group">
+                    <label><input type="radio" name="ukResident" value="yes" checked> Yes</label> 
+                    <label><input type="radio" name="ukResident" value="no"> No</label>
+                </div>
+            </fieldset>
+
+            <!-- Button: Continue to Step 2 -->
+            <button class="btn btn-continue mt-4" onclick="goToStep2()">Continue</button>
+
+            <!-- Button: Help -->
+            <button class="btn btn-help mt-4" onclick="showHelp('step1')">❓</button>       
+        </section>
+
+        <!-- Step 2: Income Details -->
+        <section id="step-2" style="display:none;">
+            <h2>Step 2: Income Details</h2>
+
+            <!-- Field: Annual Income -->
+            <div class="field"> 
+                <label>Annual Income:</label>
+                <div class="input-row"> <!-- Input row: Annual Income -->
+                    <span class="input-prefix">£</span> <!-- Prefix: £ -->
+                    <!-- Input: Annual Income -->
+                    <input class="input" type="number" id="annualIncome">
+                    
+                </div>
+            </div>
+
+            <!-- Field: Student Loan -->
+            <div class="field">
+                <label>Do you have a Student Loan?</label>  <!-- Label: Student Loan -->
+                <div class="radio-group">   <!-- Radio group: Student Loan -->
+                    <label><input type="radio" name="hasLoan" value="yes"> Yes</label>
+                    <label><input type="radio" name="hasLoan" value="no" checked> No</label>
+                </div>
+            </div>
+
+            <!-- Field: Student Loan Plan (shown only if user has a loan) -->
+            <div class="field" id="loanPlanField" style="display:none;">
+                <label>Select your Student Loan Plan</label>
+                <select class="input" id="loanPlan">  <!-- Select: Student Loan Plan -->
+                    <option value="">-- Select Plan --</option>   
+                    <option value="plan1">Plan 1</option>
+                    <option value="plan2">Plan 2</option>
+                    <option value="plan4">Plan 4</option>
+                    <option value="plan5">Plan 5</option>
+                    <option value="postgrad">Postgraduate Loan</option>
+                </select>
+            </div>
+
+             <!-- Field: Pension Type -->
+            <div class="field">
+                <label>Type of Pension</label>
+                <select class="input" id="pensionType">  <!-- Select: Pension Type -->
+                    <option value="none">No Pension</option>
+                    <option value="auto">Auto‑Enrolment (NPA)</option>
+                    <option value="salary">Salary Sacrifice (NPA)</option>
+                    <option value="personal">Personal Pension (RAS)</option>
+                </select>
+            </div>
+
+            <!-- Button: Calculate -->
+            <button class="btn btn-calculate mt-4" onclick="calculateTaxHome()">Calculate</button>
+
+            <!-- Button: Help Income Details -->
+            <button class="btn btn-help mt-4" onclick="showHelp('step2')">❓</button>       
+        </section>
+
+         <!-- Get results -->
+        <section id="results" style="display:none;">
+            <h2>Results</h2>
+
+            <!-- Result: Name -->
+            <p><strong>Name:</strong> <span id="resName"></span></p>
+            <!-- Result: UK Residency -->
+            <p><strong>UK Resident:</strong> <span id="resResident"></span></p>
+
+            <h3>Summary</h3>
+
+            <!-- Results header -->
+            <div class="results-header">
+                <div>Concept</div>
+                <div>Annual (£)</div>
+                <div>Monthly (£)</div>
+            </div>
+
+            <!-- Results rows -->
+            <div class="results-row">
+                <div>Gross Salary</div>
+                <div id="grossAnnual"></div>
+                <div id="grossMonthly"></div>
+            </div>
+
+            <!-- Result: Taxable Income -->
+            <div class="results-row">
+                <div>Taxable Income</div>
+                <div id="taxableAnnual"></div>
+                <div id="taxableMonthly"></div>
+            </div>
+
+            <!-- Result: Income Tax -->
+            <div class="results-row">
+                <div>Income Tax</div>
+                <div id="taxAnnual"></div>
+                <div id="taxMonthly"></div>
+            </div>
+
+            <!-- Result: National Insurance -->
+            <div class="results-row">
+                <div>National Insurance (NI)</div>
+                <div id="niAnnual"></div>
+                <div id="niMonthly"></div>
+            </div>
+
+            <!-- Result: Student Loan -->
+            <div class="results-row">
+                <div>Student Loan</div>
+                <div id="loanAnnual">0.00</div>
+                <div id="loanMonthly">0.00</div>
+            </div>
+
+            <!-- Result: Pension Contribution -->
+            <div class="results-row">
+                <div>Pension Contribution</div>
+                <div id="pensionAnnual">0.00</div>
+                <div id="pensionMonthly">0.00</div>
+            </div>
+
+            <!-- Net Pay -->
+            <hr class="divider">
+
+            <div class="results-row">
+                <div><strong>Net Pay</strong></div>
+                <div id="netAnnual"></div>
+                <div id="netMonthly"></div>
+            </div>
+
+            <!-- Result: Conclusion -->
+            <h3>Conclusion</h3>
+            <p id="resConclusion"></p>
+
+            <!-- Print Summary Buttons, Print With Document Write and Enter New User and Help -->
+            <button class="btn btn-printSummary mt-4" onclick="printSummary()">Print Summary</button>
+            <button class="btn btn-printWithDocumentWrite mt-4" onclick="printWithDocumentWrite()">Print Summary (document.write)</button>
+            <button class="btn btn-newUser mt-4" onclick="location.reload()">Enter New User</button>
+            <button class="btn btn-help mt-4" onclick="showHelp('results')">❓</button>
+
+        </section>
+
+        <!-- Help Section -->
+        <section id="helpModal" class="modal">
+            <div class="modal-content">
+                <span id="closeBtn">&times;</span>
+                <!-- Help content will be injected here by JavaScript -->
+                <div id="helpContent"></div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="container" style="text-align: center;">
+        All rights reserved. Designed by Cesar Quilligana &copy; 2026
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="js/script.js"></script>
+
+</body>
+</html>
